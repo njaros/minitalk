@@ -19,8 +19,8 @@ all:		${NAME_C} ${NAME_S}
 
 ${NAME}:	all
 
-${NAME_S}:	${LIBFT} ${OBJS_S}
-			${CC} ${CFLAGS} ${OBJS_S} ./libft/libft.a -o ${NAME_S}
+${NAME_S}:	${LIBFT} ${OBJS_S} minitalk_utils.o
+			${CC} ${CFLAGS} ${OBJS_S} minitalk_utils.o ./libft/libft.a -o ${NAME_S}
 
 ${NAME_C}:	${LIBFT} ${OBJS_C}
 			${CC} ${CFLAGS} ${OBJS_C} ./libft/libft.a -o ${NAME_C}
