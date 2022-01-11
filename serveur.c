@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <sys/errno.h>
 
 char	*ajout_char(char *str, char c, int reinit)
 {
