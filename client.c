@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-int	envoi_bit_norminage(char c, int bit)
+int	valeur_bit(char c, int bit)
 {
 	if ((c & (0x80 >> bit)) == 0x80 >> bit)
 		return (1);
@@ -26,7 +26,7 @@ void	envoi_bit(int serv_pid, char *av2, int etat)
 	static int	bit = -1;
 	static int	char_lu = 0;
 	static int	pid = 0;
-	int			bug;
+	int			signal;
 
 	if (etat == 1)
 	{
@@ -40,13 +40,13 @@ void	envoi_bit(int serv_pid, char *av2, int etat)
 		bit = 0;
 		char_lu++;
 	}
-	bug = envoi_bit_norminage(cpy[char_lu], bit);
+	signal = valeur_bit(cpy[char_lu], bit);
 	if (!cpy[char_lu] && bit == 7)
 	{
-		client_envoi_signal(pid, bug, cpy);
+		client_envoi_signal(pid, signal, cpy);
 		error(0, cpy);
 	}
-	client_envoi_signal(pid, bug, cpy);
+	client_envoi_signal(pid, signal, cpy);
 }
 
 void	handler(int sig)

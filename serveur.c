@@ -13,41 +13,10 @@
 #include "minitalk.h"
 #include <sys/errno.h>
 
-char	*ajout_char(char *str, char c, int init)
-{
-	static int	i = 1;
-	int			j;
-	char		*charade;
-
-	j = -1;
-	if (!init)
-	{
-		charade = malloc(i + 1);
-		if (str)
-		{
-			while (str[++j])
-				charade[j] = str[j];
-		}
-		charade[i - 1] = c;
-		charade[i] = '\0';
-		i++;
-		free(str);
-		return (charade);
-	}
-	else
-	{
-		i = 1;
-		ft_putstr_fd(str, 1);
-		free(str);
-		return (NULL);
-	}
-}
-
 void	handler(int sig, siginfo_t *siginfo, void *ucontext)
 {
 	static char	c = 0x00;
 	static int	bit_pos = 0;
-	static char	*str = NULL;
 
 	(void) ucontext;
 	if (sig == SIGUSR2)
@@ -55,13 +24,7 @@ void	handler(int sig, siginfo_t *siginfo, void *ucontext)
 	bit_pos++;
 	if (bit_pos >= 8)
 	{
-		if (c)
-			str = ajout_char(str, c, 0);
-		else
-		{
-			str = ajout_char(str, c, 1);
-			free(str);
-		}
+		ft_putchar_fd(c, 1);
 		bit_pos = 0;
 		c = 0x00;
 	}

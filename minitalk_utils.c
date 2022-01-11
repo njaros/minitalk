@@ -6,7 +6,7 @@
 /*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 13:23:58 by njaros            #+#    #+#             */
-/*   Updated: 2022/01/11 14:52:09 by njaros           ###   ########lyon.fr   */
+/*   Updated: 2022/01/11 15:19:07 by njaros           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void	error(int err, char *to_free)
 	exit(EXIT_FAILURE);
 }
 
-void	client_envoi_signal(int pid, int bug, char *str)
+void	client_envoi_signal(int pid, int signal, char *str)
 {
-	if (bug == 1)
+	if (signal == 1)
 	{
 		if (kill(pid, SIGUSR2) == -1)
 			error(2, str);
 	}
-	else
+	else if (signal == 0)
 	{
 		if (kill(pid, SIGUSR1) == -1)
 			error(2, str);
