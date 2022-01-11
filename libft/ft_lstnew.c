@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:26:18 by njaros            #+#    #+#             */
-/*   Updated: 2022/01/10 16:26:18 by njaros           ###   ########lyon.fr   */
+/*   Created: 2021/11/02 15:25:50 by njaros            #+#    #+#             */
+/*   Updated: 2021/11/02 15:25:52 by njaros           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include "libft/libft.h"
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*new;
 
-void	client_envoi_signal(int pid, int bug, char *str);
-void	error(int err, char *to_free);
-
-#endif
+	new = malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
+}

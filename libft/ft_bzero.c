@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:26:18 by njaros            #+#    #+#             */
-/*   Updated: 2022/01/10 16:26:18 by njaros           ###   ########lyon.fr   */
+/*   Created: 2021/11/02 15:18:47 by njaros            #+#    #+#             */
+/*   Updated: 2021/11/02 15:18:51 by njaros           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include "libft/libft.h"
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*fill;
 
-void	client_envoi_signal(int pid, int bug, char *str);
-void	error(int err, char *to_free);
-
-#endif
+	i = 0;
+	fill = s;
+	while (i < n)
+	{
+		fill[i] = '\0';
+		i++;
+	}
+}

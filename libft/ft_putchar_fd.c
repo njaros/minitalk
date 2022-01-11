@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:26:18 by njaros            #+#    #+#             */
-/*   Updated: 2022/01/10 16:26:18 by njaros           ###   ########lyon.fr   */
+/*   Created: 2021/11/02 15:28:06 by njaros            #+#    #+#             */
+/*   Updated: 2021/11/02 15:28:09 by njaros           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include "libft/libft.h"
-
-void	client_envoi_signal(int pid, int bug, char *str);
-void	error(int err, char *to_free);
-
-#endif
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}

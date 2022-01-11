@@ -1,22 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:26:18 by njaros            #+#    #+#             */
-/*   Updated: 2022/01/10 16:26:18 by njaros           ###   ########lyon.fr   */
+/*   Created: 2021/11/02 15:27:04 by njaros            #+#    #+#             */
+/*   Updated: 2021/11/02 15:27:06 by njaros           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include "libft/libft.h"
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	char		*fill;
+	const char	*check;
+	size_t		i;
 
-void	client_envoi_signal(int pid, int bug, char *str);
-void	error(int err, char *to_free);
-
-#endif
+	if (!dest && !src)
+		return (dest);
+	i = 0;
+	fill = dest;
+	check = src;
+	if (fill <= check)
+	{
+		while (i < n)
+		{
+			fill[i] = check[i];
+			i++;
+		}
+		n = 0;
+	}
+	while (n > 0)
+	{
+		fill[n - 1] = check[n - 1];
+		n--;
+	}
+	return (dest);
+}

@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:26:18 by njaros            #+#    #+#             */
-/*   Updated: 2022/01/10 16:26:18 by njaros           ###   ########lyon.fr   */
+/*   Created: 2021/11/02 15:24:09 by njaros            #+#    #+#             */
+/*   Updated: 2021/11/02 15:24:17 by njaros           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include "libft/libft.h"
+void	ft_lstadd_back(t_list **alst, t_list *new)
+{
+	t_list	*temp;
 
-void	client_envoi_signal(int pid, int bug, char *str);
-void	error(int err, char *to_free);
-
-#endif
+	if (*alst == NULL)
+		*alst = new;
+	else
+	{
+		temp = *alst;
+		while ((*alst)->next)
+			*alst = (*alst)->next;
+		(*alst)->next = new;
+		*alst = temp;
+	}
+}

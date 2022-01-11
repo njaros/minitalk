@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:26:18 by njaros            #+#    #+#             */
-/*   Updated: 2022/01/10 16:26:18 by njaros           ###   ########lyon.fr   */
+/*   Created: 2021/11/02 15:31:59 by njaros            #+#    #+#             */
+/*   Updated: 2021/11/02 15:32:01 by njaros           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include "libft/libft.h"
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char	*happy;
+	size_t	i;
 
-void	client_envoi_signal(int pid, int bug, char *str);
-void	error(int err, char *to_free);
-
-#endif
+	if ((s == NULL) || ((*f) == NULL))
+		return (NULL);
+	i = 0;
+	while (s[i])
+		i++;
+	happy = malloc (sizeof(char) * i + 1);
+	if (!happy)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		happy[i] = (*f)(i, s[i]);
+		i++;
+	}
+	happy[i] = '\0';
+	return (happy);
+}

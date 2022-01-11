@@ -1,29 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   serveur.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/10 16:26:42 by njaros            #+#    #+#             */
+/*   Updated: 2022/01/10 16:26:42 by njaros           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
+#include <sys/errno.h>
+
+char	*ajout_char(char *str, char c, int init)
+{
+	static int	i = 1;
+	int			j;
+	char		*charade;
+
+	j = -1;
+	if (!init)
+	{
+		charade = malloc(i + 1);
+		if (str)
+		{
+			while (str[++j])
+				charade[j] = str[j];
+		}
+		charade[i - 1] = c;
+		charade[i] = '\0';
+		i++;
+		free(str);
+		return (charade);
+	}
+	else
+	{
+		i = 1;
+		ft_putstr_fd(str, 1);
+		free(str);
+		return (NULL);
+	}
+}
 
 void	handler(int sig, siginfo_t *siginfo, void *ucontext)
 {
-	static unsigned char	c = 0x00;
-	static int				bit_pos = 0;
+	static char	c = 0x00;
+	static int	bit_pos = 0;
+	static char	*str = NULL;
 
 	(void) ucontext;
 	if (sig == SIGUSR2)
 		c = c | (0x80 >> bit_pos);
 	bit_pos++;
-	if (bit_pos == 8)
+	if (bit_pos >= 8)
 	{
-		if (c != 0)
-			write(1, &c, 1);
+		if (c)
+			str = ajout_char(str, c, 0);
 		else
-			write(1, "\n", 1);
+		{
+			str = ajout_char(str, c, 1);
+			free(str);
+		}
 		bit_pos = 0;
 		c = 0x00;
 	}
-	if (kill(siginfo->si_pid, SIGUSR1) == -1)
-	{
-		kill(siginfo->si_pid, SIGUSR2);
-		ft_putendl_fd("serveur introuvable, fermeture processus", 1);
-		exit(EXIT_FAILURE);
-	}
+	kill(siginfo->si_pid, SIGUSR1);
 }
 
 int	main(void)
@@ -31,6 +73,9 @@ int	main(void)
 	struct sigaction	act;
 	pid_t				pid;
 
+	sigemptyset(&act.sa_mask);
+	sigaddset(&act.sa_mask, SIGINT);
+	sigaddset(&act.sa_mask, SIGKILL);
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = handler;
 	sigaction(SIGUSR1, &act, NULL);

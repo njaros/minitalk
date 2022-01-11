@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njaros <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:26:18 by njaros            #+#    #+#             */
-/*   Updated: 2022/01/10 16:26:18 by njaros           ###   ########lyon.fr   */
+/*   Created: 2021/11/02 15:31:29 by njaros            #+#    #+#             */
+/*   Updated: 2021/11/02 15:31:31 by njaros           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include "libft/libft.h"
+size_t	ft_strlcpy(char *dest, const char *src, size_t n)
+{
+	size_t	i;
 
-void	client_envoi_signal(int pid, int bug, char *str);
-void	error(int err, char *to_free);
-
-#endif
+	i = 0;
+	if (n == 0)
+		return (ft_strlen(src));
+	while ((i < n - 1) && (src[i]))
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	while (src[i])
+		i++;
+	return (i);
+}
