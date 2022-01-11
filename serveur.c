@@ -28,7 +28,11 @@ void	handler(int sig, siginfo_t *siginfo, void *ucontext)
 		bit_pos = 0;
 		c = 0x00;
 	}
-	kill(siginfo->si_pid, SIGUSR1);
+	if (kill(siginfo->si_pid, SIGUSR1) == -1)
+	{
+		ft_putendl_fd("Fail du kill", 1);
+		exit(EXIT_FAILURE);
+	}
 }
 
 int	main(void)
