@@ -73,7 +73,7 @@ int	main(void)
 	sigaddset(&act.sa_mask, SIGINT);
 	sigaddset(&act.sa_mask, SIGKILL);
 	act.sa_flags = SA_SIGINFO;
-	act.__sigaction_u.__sa_sigaction = handler;
+	act.sa_sigaction = handler;
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);
 	pid = getpid();

@@ -28,6 +28,8 @@ void	envoi_bit(int serv_pid, char *av2, int etat)
 	static int	pid = 0;
 	int			signal;
 
+	if (bit == 8)
+		error(0, cpy);
 	if (etat == 1)
 	{
 		cpy = ft_strdup(av2);
@@ -42,10 +44,7 @@ void	envoi_bit(int serv_pid, char *av2, int etat)
 	}
 	signal = valeur_bit(cpy[char_lu], bit);
 	if (!cpy[char_lu] && bit == 7)
-	{
-		client_envoi_signal(pid, signal, cpy);
-		error(0, cpy);
-	}
+		bit++;
 	client_envoi_signal(pid, signal, cpy);
 }
 

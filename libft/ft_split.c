@@ -57,12 +57,13 @@ char	*fill_adr(const char *str, char c)
 
 char	**free_split(char **split, size_t j)
 {
-	while (j >= 0)
+	while (j > 0)
 	{
 		if (split[j] != NULL)
 			free (split[j]);
 		j--;
 	}
+	free (split[j]);
 	free (split);
 	return (NULL);
 }
