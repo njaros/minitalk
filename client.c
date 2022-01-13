@@ -12,12 +12,18 @@
 
 #include "minitalk.h"
 
-int	valeur_bit(char c, int bit)
+void	client_envoi_signal(int pid, int signal, char *str)
 {
-	if ((c & (0x80 >> bit)) == 0x80 >> bit)
-		return (1);
-	else
-		return (0);
+	if (signal == 1)
+	{
+		if (kill(pid, SIGUSR2) == -1)
+			error(3, str, 0);
+	}
+	else if (signal == 0)
+	{
+		if (kill(pid, SIGUSR1) == -1)
+			error(3, str, 0);
+	}
 }
 
 void	envoi_bit(int serv_pid, char *av2, int etat)
@@ -28,13 +34,13 @@ void	envoi_bit(int serv_pid, char *av2, int etat)
 	static int	pid = 0;
 	int			signal;
 
-	if (bit == 8)
-		error(0, cpy);
+	if (bit == 8 || etat == 2)
+		error(0, cpy, etat);
 	if (etat == 1)
 	{
 		cpy = ft_strdup(av2);
 		if (!cpy)
-			error(4, NULL);
+			error(4, NULL, 0);
 		pid = serv_pid;
 	}
 	if (++bit == 8)
@@ -42,7 +48,7 @@ void	envoi_bit(int serv_pid, char *av2, int etat)
 		bit = 0;
 		char_lu++;
 	}
-	signal = valeur_bit(cpy[char_lu], bit);
+	signal = ((cpy[char_lu] & (0x80 >> bit)) == 0x80 >> bit);
 	if (!cpy[char_lu] && bit == 7)
 		bit++;
 	client_envoi_signal(pid, signal, cpy);
@@ -52,6 +58,8 @@ void	handler(int sig)
 {
 	if (sig == SIGUSR1)
 		envoi_bit(0, NULL, 0);
+	if (sig == SIGUSR2)
+		envoi_bit(0, NULL, 2);
 }
 
 int	main(int ac, char **av)
@@ -59,7 +67,7 @@ int	main(int ac, char **av)
 	int	pid;
 
 	if (ac != 3)
-		(error(1, NULL));
+		(error(1, NULL, 0));
 	pid = ft_atoi(av[1]);
 	signal(SIGUSR1, handler);
 	signal(SIGUSR2, handler);

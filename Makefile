@@ -15,7 +15,7 @@ LIBFT =		libft/libft.a
 %.o:		%.c ${HEADERS}
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-all:		${NAME_C} ${NAME_S}
+all:		libft ${NAME_C} ${NAME_S}
 
 ${NAME}:	all
 
@@ -25,8 +25,10 @@ ${NAME_S}:	${LIBFT} ${OBJS_S} minitalk_utils.o
 ${NAME_C}:	${LIBFT} ${OBJS_C}
 			${CC} ${CFLAGS} ${OBJS_C} ./libft/libft.a -o ${NAME_C}
 
-${LIBFT}: 
-			$(MAKE) bonus -C ./libft
+libft:		
+			$(MAKE) -C ./libft
+
+bonus: all
 
 clean:	
 			$(MAKE) clean -C ./libft
@@ -35,3 +37,7 @@ clean:
 fclean:		clean
 			${RM} ${NAME_S} ${NAME_C}
 			$(MAKE) fclean -C ./libft
+
+re: fclean all
+
+.PHONY: all bonus clean fclean libft

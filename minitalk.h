@@ -16,7 +16,6 @@
 # include <signal.h>
 # include "libft/libft.h"
 
-void	client_envoi_signal(int pid, int bug, char *str);
-void	error(int err, char *to_free);
+void	error(int err, char *to_free, int serv_err);
 
 #endif
