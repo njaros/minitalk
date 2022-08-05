@@ -9,7 +9,7 @@ The three nexts points allowed me to not use usleep.
 
 They're is a lot of french touch in function's and variable's names. I'm not sorry about that.
 
-Don't use my Makefile, he's weird (I keep it because I won't modify my old project). I guess he can relink easily when modify libft.
+Don't use my Makefile, he's weird (I keep it because I won't modify my olds projects). I guess he can relink easily when modify libft.
 
 
 I hope I helped you to anderstand the project.
