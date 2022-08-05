@@ -7,6 +7,6 @@ The three nexts points allowed me to not use usleep.
 * Mac Kernel don't get lost thanks of sigaction's flags I used.
 * Server and client can't loose data thanks of the fact I call kill() at the very last in each exchange.
 
-They're is a lot of french touch in fonction and variable names. I'm not sorry about that.
+They're is a lot of french touch in function's and variable's names. I'm not sorry about that.
 
 I hope I helped you to anderstand the project.
