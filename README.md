@@ -1,10 +1,10 @@
-# minitalk
+# minitalk 125/100 without usleep
 
-To translate, go google translator or learn french.
+That's a stable version of the minitalk subject of 42 school.
 
-Cette version semble ne plus buguer lors d'échanges de signaux UNIX rapide.
-Je suppose que le flag SA_RESTART permet de redémarrer les processus qui gère les signaux UNIX quand ils commencent à saturer.
-SA_NODEFER est probablement inutile, mais c'est une sécurité au cas où la comparaison entre le precessus kill et -1 est plus long qu'un envoi de signal par ./client.
-On peut enlever les sigset et ses fonctions associées, j'ai l'impression que ça ne sert à rien.
+The two next point allowed me to not use usleep.
+* I use sigaction for server. (no need for client).
+* Mac Kernel don't get lost thanks of sigaction's flags I used.
+* Server and client can't loose data thanks of the fact I call kill() at the very last in each exchange.
 
-Pas besoin de faire tout ça sur un kernel autre que Darwin (qui n'a pas évolué depuis 2005, vive Apple).
+I hope I helped you to anderstand the project.
